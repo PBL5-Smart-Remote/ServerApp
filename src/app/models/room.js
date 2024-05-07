@@ -9,7 +9,10 @@ const Room = new Schema({
 }, {
     timestamps: true,
     statics: {
-
+        async getRoom(_idRoom) {
+            return await this.findById(_idRoom)
+                .populate({path: 'devices'});
+        },
     }
 });
 
