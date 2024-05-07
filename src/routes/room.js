@@ -6,5 +6,4 @@ const roomController = require('../app/controllers/RoomController');
 // userController
 router.get('/:idRoom', roomController.roomByID);
 
-
 module.exports = router;
