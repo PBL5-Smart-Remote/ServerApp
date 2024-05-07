@@ -97,6 +97,47 @@ class UserController {
         }
     }
 
+    // [GET] users/:idUser
+    // login
+    async getUser(req, res, next) {
+        try {
+            var token = req.headers.authorization;
+
+            const user = await getUserByToken(token)
+
+            if (!user) {
+                throw new Error('Invalid Token')
+            }
+
+            const _id = req.params.idUser;
+            if (_id == 'allUser') {
+                const users = await User.getAllUser();
+
+                if (!users) {
+                    throw Error('Not found any User')
+                }
+
+                res.status(200).json({
+                    'users': users
+                });
+            } else {
+                const userFound = await User.getUser(_id);
+
+                if (!userFound) {
+                    throw Error('Not found any User')
+                }
+
+                res.status(200).json({
+                    'user': userFound
+                });
+            }
+        } catch (err) {
+            res.status(404).json({
+                'msg': err.message
+            });
+        }
+    }
+
 
 }
 

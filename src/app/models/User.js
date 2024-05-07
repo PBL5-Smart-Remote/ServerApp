@@ -24,6 +24,9 @@ const User = new Schema({
     statics: {
         async getUser(_idUser) {
             return await this.findById(_idUser);
+        }, 
+        async getAllUser() {
+            return await this.find();
         },
         async findByEmail(email) {
             return this.findOne({ email: email });
