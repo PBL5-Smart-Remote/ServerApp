@@ -39,6 +39,9 @@ const Device = new Schema({
             return await this.findById(_idDevice)
                 .populate({ path: 'ESP' })
                 .populate({ path: 'room' })
+                .catch((err) => {
+                    throw err
+                })
         }
     }
 });
