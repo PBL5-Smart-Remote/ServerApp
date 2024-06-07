@@ -19,6 +19,11 @@ const Schedule = new Schema({
     devices: [
         DeviceStatus
     ],
+    name: {
+        type: String,
+        default: '(unnamed)',
+        required: true,
+    },
     daysOfWeek: {
         type: [Number],
         required: true,
