@@ -132,6 +132,29 @@ class ScheduleController {
             });
         }
     }
+
+    // [DELETE] delete/:_idSchedule
+    async deleteSchedule(req, res, next) {
+        try {
+            const _id = req.params._idSchedule;
+            const scheduleFound = await Schedule.getSchedule(_id);
+
+            if (!scheduleFound) {
+                throw Error('Not found any Schedule')
+            }
+
+            await Schedule.deleteSchedule(_id)
+
+            res.status(200).json({
+                'STATUS': "DELETED SUCCESSFUL",
+            });
+
+        } catch (e) {
+            res.status(409).json({
+                'STATUS': e.toString()
+            });
+        }
+    }
 }
 
 

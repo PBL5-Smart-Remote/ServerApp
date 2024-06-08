@@ -107,6 +107,14 @@ const Schedule = new Schema({
                 console.error('Error finding schedules:', err);
                 throw err;
             }
+        },
+        async deleteSchedule(_id) {
+            try {
+                await this.deleteOne({ _id: _id })
+            } catch (err) {
+                console.error('Error finding schedules:', err);
+                throw err;
+            }
         }
     }
 });
