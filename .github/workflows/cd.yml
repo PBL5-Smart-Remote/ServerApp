@@ -7,16 +7,19 @@ on:
       - completed
 
 jobs:
-
-  build:
-
+  deploy:
     runs-on: self-hosted
 
     steps:
     - name: Pull the Docker image
       run: sudo docker pull tuginone/server-app:latest
+
     - name: Delete old docker container
       run: sudo docker rm -f server-app || true
-    - name: Run the Docker container
-      run: sudo docker run -d -p 5500:5500 --name server-app tuginone/server-app:latest
-    
+
+    - name: Create .env file
+      run: |
+        echo "URL_DB=${{ secrets.URL_DB }}" > .env
+
+    - name: Run the Docker container with .env
+      run: sudo docker run -d -p 5500:5500 --name server-app --env-file .env tuginone/server-app:latest
