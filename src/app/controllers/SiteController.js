@@ -7,6 +7,17 @@ class SiteController {
         console.log('cron_now');
         res.send('Trang chủ server App');
     }
+
+    async checkDB(req, res, next) {
+        try {
+            await mongoose.connect(process.env.URL_DB);
+
+            // require('../../app/models/index');
+            res.send('Connect successfully!!!');
+        } catch (error) {
+            res.send('Connect Failure');
+        }
+    }
 }
 
 
