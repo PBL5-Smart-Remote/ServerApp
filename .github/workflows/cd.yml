@@ -1,0 +1,22 @@
+name: CDAwsPipeline
+
+on:
+  workflow_run:
+    workflows: ["CIPipeline"]
+    types:
+      - completed
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Pull the Docker image
+      run: sudo docker pull tuginone/server-app:latest
+    - name: Delete old docker container
+      run: sudo docker rm -f server-app || true
+    - name: Run the Docker container
+      run: sudo docker run -d -p 5500:5500 --name server-app tuginone/server-app:latest
+    
