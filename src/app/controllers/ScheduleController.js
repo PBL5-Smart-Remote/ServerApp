@@ -106,6 +106,32 @@ class ScheduleController {
             });
         }
     }
+
+    // [PATCH] update/:_idSchedule/status
+    async updateStatus(req, res, next) {
+        try {
+            const _id = req.params._idSchedule;
+            const scheduleFound = await Schedule.getSchedule(_id);
+
+            const isActive = req.body.isActive;
+
+            if (!scheduleFound) {
+                throw Error('Not found any Schedule')
+            }
+
+            const newSchedule = await Schedule.updateStatus(_id, isActive);
+
+            res.status(200).json({
+                'STATUS': "UPDATED SUCCESSFUL",
+                '_id': newSchedule._id
+            });
+
+        } catch (e) {
+            res.status(409).json({
+                'STATUS': e.toString()
+            });
+        }
+    }
 }
 
 

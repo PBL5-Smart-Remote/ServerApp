@@ -89,6 +89,24 @@ const Schedule = new Schema({
                 console.error('Error finding schedules:', err);
                 throw err;
             }
+        },
+        async updateStatus(_id, isActive) {
+            try {
+                await this.updateOne({
+                    _id: _id
+                }, {
+                    $set: {
+                        isActive: isActive
+                    }
+                }).catch(err => {
+                    throw err
+                });
+
+                return await this.findById(_id);
+            } catch (err) {
+                console.error('Error finding schedules:', err);
+                throw err;
+            }
         }
     }
 });
