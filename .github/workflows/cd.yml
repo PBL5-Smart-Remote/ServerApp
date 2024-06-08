@@ -20,6 +20,7 @@ jobs:
     - name: Create .env file
       run: |
         echo "URL_DB=${{ secrets.URL_DB }}" > .env
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
 
     - name: Run the Docker container with .env
       run: sudo docker run -d -p 5500:5500 --name server-app --env-file .env tuginone/server-app:latest
